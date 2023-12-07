@@ -1,0 +1,17 @@
+import machine
+import time
+buzzer=machine.PWM(machine.Pin(15))
+button=machine.Pin(14,machine.Pin.IN,machine.Pin.PULL_DOWN)
+
+f=500
+buzzer.freq(f)
+buzzer.duty_u16(10000)
+
+while True:
+    f=f+100
+    buzzer.freq(f)
+    time.sleep(0.1)
+    if button.value()==1:
+        print("freq:",f/1000,"KHZ")
+        buzzer.duty_u16(0)
+        break
